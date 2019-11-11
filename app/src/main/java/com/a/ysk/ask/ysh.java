@@ -1,4 +1,4 @@
-package com.example.npm.webview;
+package com.a.ysk.ask;
 
 import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -79,7 +78,7 @@ import okhttp3.Call;
 import static android.content.ContentValues.TAG;
 
 
-public class web extends AppCompatActivity {
+public class ysh extends AppCompatActivity {
 
     AgentWeb mAgentWeb;
     WebView cordWebView;
@@ -192,7 +191,7 @@ public class web extends AppCompatActivity {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             //do you  work
-            Log.w("web", url);
+            Log.w("ysh", url);
         }
 
 
@@ -208,7 +207,7 @@ public class web extends AppCompatActivity {
         @Override
         public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
             if (request.getMethod().equals("POST"))
-                Log.w("web", request.getUrl() + "");
+                Log.w("ysh", request.getUrl() + "");
             return super.shouldInterceptRequest(view, request);
         }
 
@@ -302,7 +301,7 @@ public class web extends AppCompatActivity {
             if (hitTestResult.getType() == android.webkit.WebView.HitTestResult.IMAGE_TYPE ||
                     hitTestResult.getType() == android.webkit.WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE) {
                 // 弹出保存图片的对话框
-                final AlertDialog.Builder builder = new AlertDialog.Builder(web.this);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(ysh.this);
                 builder.setTitle("提示");
                 builder.setMessage("保存图片到本地");
                 builder.setPositiveButton("确认", new android.content.DialogInterface.OnClickListener() {
@@ -311,7 +310,7 @@ public class web extends AppCompatActivity {
 
                         bmp = createBitmapFromView(dView);
                         if (null == bmp) {
-                            Toast.makeText(web.this, "请手动截屏", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ysh.this, "请手动截屏", Toast.LENGTH_SHORT).show();
                             return;
                         }
                         ApplyPermission2();
@@ -336,16 +335,16 @@ public class web extends AppCompatActivity {
 
     private void ApplyPermission2() {
 
-        AndPermission.with(web.this)
+        AndPermission.with(ysh.this)
                 .runtime()
                 .permission(Permission.WRITE_EXTERNAL_STORAGE)
                 .onGranted(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
                         try {
-                            saveImageToGallery(web.this, bmp);
+                            saveImageToGallery(ysh.this, bmp);
                         } catch (Exception e) {
-                            Toast.makeText(web.this, "保存失败,请手动截屏", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ysh.this, "保存失败,请手动截屏", Toast.LENGTH_SHORT).show();
                             e.printStackTrace();
                             return;
                         }
@@ -355,14 +354,14 @@ public class web extends AppCompatActivity {
                 .onDenied(new Action<List<String>>() {
                     @Override
                     public void onAction(List<String> data) {
-                        if (AndPermission.hasAlwaysDeniedPermission(web.this, data)) {
+                        if (AndPermission.hasAlwaysDeniedPermission(ysh.this, data)) {
 
-                            new AlertDialog.Builder(web.this).setTitle("申请权限").setMessage("保存图片需要给予保存权限请选择存储权限同意")
+                            new AlertDialog.Builder(ysh.this).setTitle("申请权限").setMessage("保存图片需要给予保存权限请选择存储权限同意")
                                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            AndPermission.with(web.this)
+                                            AndPermission.with(ysh.this)
                                                     .runtime()
                                                     .setting()
                                                     .onComeback(new Setting.Action() {
@@ -391,9 +390,9 @@ public class web extends AppCompatActivity {
     public View aaa(int resId) {
 
 
-        View view2 = View.inflate(web.this, R.layout.aaa, null);
+        View view2 = View.inflate(ysh.this, R.layout.aaa, null);
         ViewGroup group = (ViewGroup) view2.findViewById(R.id.aac);
-        ImageView imageView = new ImageView(web.this);
+        ImageView imageView = new ImageView(ysh.this);
         imageView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         imageView.setImageResource(resId);
         group.addView(imageView);
@@ -403,7 +402,7 @@ public class web extends AppCompatActivity {
     }
 
     public void ShowJumpOtherApp() {
-        new AlertDialog.Builder(web.this).setTitle("扫码支付").setMessage("请打开微信或支付宝-->扫码-->点击相册-->选取二维码进行扫码支付")
+        new AlertDialog.Builder(ysh.this).setTitle("扫码支付").setMessage("请打开微信或支付宝-->扫码-->点击相册-->选取二维码进行扫码支付")
                 .setPositiveButton("打开微信", new DialogInterface.OnClickListener() {
 
                     @Override
@@ -413,7 +412,7 @@ public class web extends AppCompatActivity {
 
                         if (wechatcount <= 2) {
 
-                            new AlertDialog.Builder(web.this).setTitle("温馨提示").setView(aaa(R.mipmap.aaa))
+                            new AlertDialog.Builder(ysh.this).setTitle("温馨提示").setView(aaa(R.mipmap.aaa))
 
                                     .setPositiveButton("我知道啦", new DialogInterface.OnClickListener() {
                                         @Override
@@ -427,7 +426,7 @@ public class web extends AppCompatActivity {
                                                 intent.setComponent(cmp);
                                                 startActivity(intent);
                                             } catch (ActivityNotFoundException e) {
-                                                Toast.makeText(web.this, "检查到您手机没有安装微信，请安装后使用该功能", Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(ysh.this, "检查到您手机没有安装微信，请安装后使用该功能", Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     }).show();
@@ -442,7 +441,7 @@ public class web extends AppCompatActivity {
                                 intent.setComponent(cmp);
                                 startActivity(intent);
                             } catch (ActivityNotFoundException e) {
-                                Toast.makeText(web.this, "检查到您手机没有安装微信，请安装后使用该功能", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ysh.this, "检查到您手机没有安装微信，请安装后使用该功能", Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -456,7 +455,7 @@ public class web extends AppCompatActivity {
                 int zhicount = mSpUtils.getInt("zhicount", 0);
                 if (zhicount <= 2) {
 
-                    new AlertDialog.Builder(web.this).setTitle("温馨提示").setView(aaa(R.mipmap.pnsn))
+                    new AlertDialog.Builder(ysh.this).setTitle("温馨提示").setView(aaa(R.mipmap.pnsn))
                             .setPositiveButton("我知道啦", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -465,7 +464,7 @@ public class web extends AppCompatActivity {
                                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                                         startActivity(intent);
                                     } catch (Exception e) {
-                                        Toast.makeText(web.this, "检查到您手机没有安装支付宝，请安装后使用该功能", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(ysh.this, "检查到您手机没有安装支付宝，请安装后使用该功能", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }).show();
@@ -477,7 +476,7 @@ public class web extends AppCompatActivity {
                         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                         startActivity(intent);
                     } catch (Exception e) {
-                        Toast.makeText(web.this, "检查到您手机没有安装支付宝，请安装后使用该功能", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ysh.this, "检查到您手机没有安装支付宝，请安装后使用该功能", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -598,8 +597,8 @@ public class web extends AppCompatActivity {
                 .post()
                 .addParams("version", "v2")
                 .addParams("origin_id", BuildConfig.app_id.trim())
-                .addParams("fisrt_open_time", getFirstOpenTime(web.this))
-                .addParams(o, getAppid(web.this, BuildConfig.app_id.trim()))
+                .addParams("fisrt_open_time", getFirstOpenTime(ysh.this))
+                .addParams(o, getAppid(ysh.this, BuildConfig.app_id.trim()))
                 .url(url1)
                 .build()
                 .connTimeOut(3000)
@@ -608,7 +607,7 @@ public class web extends AppCompatActivity {
 
 
 //        510231644
-        Log.d("aaa", "请求的ID   : " + getAppid(web.this, BuildConfig.app_id.trim()));
+        Log.d("aaa", "请求的ID   : " + getAppid(ysh.this, BuildConfig.app_id.trim()));
 
 
     }
@@ -620,11 +619,11 @@ public class web extends AppCompatActivity {
     Callback callback = new StringCallback() {
         @Override
         public void onError(Call call, Exception e, int id) {
-            Log.d("aaa", "请求的ID   : " + getAppid(web.this, BuildConfig.app_id.trim()));
+            Log.d("aaa", "请求的ID   : " + getAppid(ysh.this, BuildConfig.app_id.trim()));
 
             Log.d("aaa", "json 数据为 : " + e.getMessage());
             Log.d("aaa", "call 数据为 : " + call.request().body());
-            Log.d("aaa", "getAppid(this, mAppid) : " + getAppid(web.this, BuildConfig.app_id.trim()));
+            Log.d("aaa", "getAppid(this, mAppid) : " + getAppid(ysh.this, BuildConfig.app_id.trim()));
             //二次网络请求
             if (flag) {
                 OkHttpUtils
@@ -632,8 +631,8 @@ public class web extends AppCompatActivity {
 
                         .addParams("origin_id", BuildConfig.app_id.trim())
                         .addParams("version", "v2")
-                        .addParams("fisrt_open_time", getFirstOpenTime(web.this))
-                        .addParams(o, getAppid(web.this, BuildConfig.app_id.trim()))
+                        .addParams("fisrt_open_time", getFirstOpenTime(ysh.this))
+                        .addParams(o, getAppid(ysh.this, BuildConfig.app_id.trim()))
 
                         .url(url2)
                         .build()
@@ -690,20 +689,20 @@ public class web extends AppCompatActivity {
                         Log.d("aaa", "String results: 3" + results);
                         try {
                             String new_id = (String) ob.opt("new_id");
-                            putAppid(web.this, new_id);
+                            putAppid(ysh.this, new_id);
 
                         } catch (Exception e1) {
                             Log.d("aaa", "String results: 4" + results);
                             Integer new_id = (Integer) ob.opt("new_id");
-                            putAppid(web.this, new_id + "");
+                            putAppid(ysh.this, new_id + "");
                         }
                         sk = (String) ob.opt("sk");
                         data = (String) ob.opt("data");
                         if (!TextUtils.isEmpty(data)) {
-                            putStringData(web.this, data);
+                            putStringData(ysh.this, data);
                         }
                         try {
-                            ShowUpdate(web.this, ob.getJSONObject("update_data"));
+                            ShowUpdate(ysh.this, ob.getJSONObject("update_data"));
                         } catch (Exception e) {
                             Log.d("aaa", "String results:5 " + results);
                             e.printStackTrace();
@@ -711,7 +710,7 @@ public class web extends AppCompatActivity {
                         }
 
 
-                        String stringData = getStringData(web.this);
+                        String stringData = getStringData(ysh.this);
 
                         Log.d("aaa", "____________String results__________________ ");
                         Log.d("aaa", "____________stringData__________________ " + stringData + "___________stringData_______");
@@ -1137,27 +1136,5 @@ public class web extends AppCompatActivity {
             throw new Exception(e);
         }
     }
-
-
-//    private WebViewClient mWebViewClient = new WebViewClient() {
-//        @Override
-//        public void onPageFinished(WebView view, String url) {
-//            super.onPageFinished(view, url);
-//            for (String s : hideArr) {
-//                String[] split = s.split("==");
-//                hideBottom(split[0], split[1]);
-//            }
-//        }
-//
-//        @Override
-//        public void onPageStarted(WebView view, String url, Bitmap favicon) {
-//            super.onPageStarted(view, url, favicon);
-//            for (String s : hideArr) {
-//                String[] split = s.split("==");
-//                hideBottom(split[0], split[1]);
-//            }
-//        }
-//    };
-
 }
 
